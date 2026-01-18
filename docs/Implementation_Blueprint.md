@@ -18,7 +18,7 @@ Build a text-based, single-player RPG using a Client-Server architecture where a
 
 -   **ORM:** `sqlalchemy` (Async) with `alembic` for migrations.
 
--   **AI/LLM:** `langchain` (Orchestration), `pydantic` (Structured Output/Validation), `openai` (or compatible API).
+-   **AI/LLM:** `langchain` (Orchestration), `pydantic` (Structured Output/Validation), `gemini` (or compatible API).
 
 -   **Testing:** `pytest`, `pytest-asyncio` (Mechanics), `llm-evals` (Narrative).
 

@@ -1,0 +1,31 @@
+[project]
+name = "infinite_echoes"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    # Server Core
+    "fastapi>=0.109.0",
+    "uvicorn[standard]>=0.27.0",
+    "pydantic-settings>=2.1.0",
+    
+    # Database
+    "sqlalchemy>=2.0.25",
+    "asyncpg>=0.29.0",
+    "pgvector>=0.2.4",
+    "alembic>=1.13.1",
+    
+    # AI / Orchestration
+    "langchain>=0.1.0",
+    "langgraph>=0.0.10", # Stateful Agents
+    "langchain-openai>=0.0.5",
+    
+    # Client Core
+    "textual>=0.47.1",
+    "httpx>=0.26.0",
+    
+    # Utilities
+    "python-dotenv>=1.0.0"
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

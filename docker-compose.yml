@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # Database Service: Uses the official pgvector image
+  # This avoids manual compilation of the extension
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: infinite_echoes_db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: infinite_echoes
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d infinite_echoes"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Backend Service: The FastAPI Server
+  backend:
+    build: .
+    container_name: infinite_echoes_server
+    command: uvicorn src.server.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      # Mount source code for live reloading during development
+      - ./src:/app/src
+    environment:
+      DATABASE_URL: postgresql+asyncpg://admin:password@db:5432/infinite_echoes
+      # Ensure this matches your local .env or inject it here
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

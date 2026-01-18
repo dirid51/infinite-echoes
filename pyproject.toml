@@ -18,6 +18,7 @@ dependencies = [
     "langchain>=0.1.0",
     "langgraph>=0.0.10", # Stateful Agents
     "langchain-openai>=0.0.5",
+    "langchain-google-genai>=4.2.0",
     
     # Client Core
     "textual>=0.47.1",
